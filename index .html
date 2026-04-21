@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Soundarya S — Artificial Intelligence and Data Science</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:         #ffffff;
+      --bg2:        #f7f7f7;
+      --bg3:        #efefef;
+      --border:     #d8d8d8;
+      --border2:    #b8b8b8;
+      --text:       #1a1a1a;
+      --muted:      #555555;
+      --accent:     #222222;
+      --highlight:  #000000;
+      --gold:       #1a1a1a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.15;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.4rem 3rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem; letter-spacing: 0.25em; color: var(--highlight);
+    }
+    .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
+      font-weight: 600; color: var(--muted); text-decoration: none; transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--highlight); }
+
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 5rem 4rem 5rem 5rem;
+      border-right: 1px solid var(--border); position: relative;
+    }
+    .hero-tag {
+      font-size: 0.78rem; letter-spacing: 0.3em; text-transform: uppercase;
+      font-weight: 700; color: var(--muted); margin-bottom: 2rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .hero-tag::before {
+      content: ''; display: block; width: 2.5rem; height: 2px; background: var(--highlight);
+    }
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.8rem, 7vw, 7rem);
+      font-weight: 800; line-height: 0.95; color: var(--highlight); margin-bottom: 1.8rem;
+    }
+    .hero-name em { font-style: italic; color: var(--muted); font-weight: 700; }
+    .hero-tagline {
+      font-size: 1.05rem; letter-spacing: 0.01em; line-height: 1.85;
+      font-weight: 400; color: var(--muted); max-width: 400px; margin-bottom: 3.5rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 0.8rem 2.2rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+      font-weight: 700;
+      text-decoration: none; border: 2px solid var(--border2);
+      color: var(--muted); background: transparent; transition: all 0.3s; cursor: pointer;
+    }
+    .btn:hover { border-color: var(--highlight); color: var(--highlight); background: rgba(0,0,0,0.04); }
+    .btn-primary { border-color: var(--highlight); color: var(--bg); background: var(--highlight); }
+    .btn-primary:hover { background: transparent; color: var(--highlight); }
+
+    .hero-right {
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      position: relative; background: var(--bg2); gap: 1.5rem; padding: 2rem 3rem 5rem 3rem;
+    }
+    .photo-frame {
+      width: 280px; height: 340px; border: 1px solid var(--border2);box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+      position: relative; overflow: hidden; background: var(--bg3);
+    }
+    .photo-frame:hover {
+  transform: translateY(-5px);  
+}
+    .photo-frame img {
+      width: 100%; height: 100%; object-fit: cover;object-position: center top; display: block; filter: grayscale(20%);
+    }
+    .photo-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 1rem;
+    }
+    .photo-placeholder svg { width: 56px; height: 56px; stroke: var(--border2); }
+    .photo-placeholder span { font-size: 0.55rem; letter-spacing: 0.2em; color: var(--muted); }
+    
+    .photo-caption { font-size: 0.82rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-align: center; font-weight: 600; }
+
+
+    section { padding: 6rem 5rem; border-bottom: 1px solid var(--border); }
+    .section-header { display: flex; align-items: baseline; gap: 2rem; margin-bottom: 4rem; }
+    .section-num { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.2em; font-weight: 700; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; color: var(--highlight); }
+    .section-line { flex: 1; height: 2px; background: var(--highlight); margin-left: 1rem; }
+
+    .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 5rem; align-items: start; }
+    .about-text p { font-size: 1.05rem; line-height: 1.9; color: var(--muted); margin-bottom: 1.4rem; font-weight: 400; }
+    .about-text p strong { color: var(--highlight); font-weight: 700; }
+    .about-details { display: flex; flex-direction: column; gap: 1px; }
+    .detail-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border); border-bottom: none;
+      padding: 1rem 1.2rem; background: var(--bg2);
+    }
+    .detail-row:last-child { border-bottom: 1px solid var(--border); }
+    .detail-key { font-size: 0.82rem; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; font-weight: 600; }
+    .detail-val { font-size: 0.95rem; color: var(--highlight); font-weight: 600; }
+
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .skill-card { background: var(--bg2); padding: 2rem 1.8rem; transition: background 0.3s; }
+    .skill-card:hover { background: var(--bg3); }
+    .skill-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+    .skill-cat {
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--highlight);
+  font-weight: 800;
+  margin-bottom: 0.8rem;
+}
+
+.skill-list {
+  font-size: 0.95rem;
+  line-height: 2;
+  color: var(--muted);
+  font-weight: 400;
+ }
+
+    .projects-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .project-item {
+      display: grid; grid-template-columns: 0.8fr 1.8fr auto;
+      align-items: center; gap: 2rem; padding: 2rem 2.5rem;
+      background: var(--bg2); transition: background 0.3s;
+    }
+    .project-item:hover { background: var(--bg3); }
+    .project-year {
+  font-size: 0.88rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.project-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--highlight);
+  margin-bottom: 0.5rem;
+}
+
+.project-desc {
+  font-size: 0.98rem;
+  line-height: 1.85;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.project-tag {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--highlight);
+  border: 2px solid var(--highlight);
+  padding: 0.3rem 0.9rem;
+  white-space: nowrap;
+}
+
+    .pub-card { border: 2px solid var(--highlight); padding: 2.5rem; background: var(--bg2); position: relative; overflow: hidden; }
+    .pub-card::before { content: 'IEEE'; position: absolute; top: -0.5rem; right: 2rem; font-family: 'Bebas Neue', sans-serif; font-size: 6rem; color: var(--border); line-height: 1; pointer-events: none; }
+    .pub-badge {
+  font-size: 0.82rem;
+  padding: 0.4rem 1.2rem;
+  letter-spacing: 0.1em;
+  border: 2px solid var(--highlight);
+  display: inline-block;
+  margin-bottom: 1.2rem;
+  color: var(--highlight);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.pub-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.9rem;
+  line-height: 1.45;
+  color: var(--highlight);
+  font-weight: 800;
+  margin-bottom: 1.2rem;
+}
+
+.pub-meta {
+  font-size: 0.9rem;
+  line-height: 2;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+.pub-meta a { color: var(--highlight); text-decoration: underline; text-underline-offset: 3px; }
+.pub-models { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+
+.model-chip {
+  font-size: 0.82rem;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--border2);
+  display: inline-block;
+  margin: 0.3rem 0.2rem;
+  color: var(--muted);
+}
+
+    .exp-list { display: flex; flex-direction: column; }
+    .exp-item { display: grid; grid-template-columns: 200px 1fr; border: 1px solid var(--border); border-bottom: none; background: var(--bg2); }
+    .exp-item:last-child { border-bottom: 1px solid var(--border); }
+    .exp-left { padding: 2rem 1.8rem; border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.4rem; }
+    .exp-company { font-size: 1rem; color: var(--highlight); font-weight: 800; letter-spacing: 0.02em; }
+    .exp-period { font-size: 0.82rem; color: var(--muted); font-weight: 500; letter-spacing: 0.05em; }
+    .exp-right { padding: 2rem; }
+    .exp-role { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--highlight); margin-bottom: 0.6rem; }
+    .exp-desc { font-size: 0.98rem; line-height: 1.85; color: var(--muted); font-weight: 400; }
+
+    .ach-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .ach-item { background: var(--bg2); padding: 2rem; display: flex; gap: 1.2rem; align-items: flex-start; transition: background 0.3s; }
+    .ach-item:hover { background: var(--bg3); }
+    .ach-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); margin-top: 0.3rem; flex-shrink: 0; }
+    .ach-text { font-size: 0.98rem; line-height: 1.85; color: var(--muted); font-weight: 400; }
+    .ach-text strong { color: var(--highlight); font-weight: 800; display: block; margin-bottom: 0.3rem; font-size: 1rem; }
+
+    footer { padding: 5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; border-top: 2px solid var(--highlight); }
+    .footer-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 4rem); font-weight: 800; color: var(--highlight); line-height: 1.15; margin-bottom: 1.5rem; }
+    .footer-title em { font-style: italic; color: var(--muted); font-weight: 700; }
+    .footer-sub { font-size: 1rem; line-height: 1.85; color: var(--muted); margin-bottom: 2.5rem; font-weight: 400; }
+    .contact-links { display: flex; flex-direction: column; gap: 1px; }
+    .contact-link { display: flex; justify-content: space-between; align-items: center; padding: 1.1rem 1.4rem; border: 1px solid var(--border); border-bottom: none; text-decoration: none; color: var(--muted); font-size: 0.95rem; font-weight: 600; letter-spacing: 0.04em; transition: all 0.3s; background: var(--bg2); }
+    .contact-link:last-child { border-bottom: 1px solid var(--border); }
+    .contact-link:hover { color: var(--highlight); background: var(--bg3); border-color: var(--highlight); }
+    .contact-link .arrow { transition: transform 0.3s; font-size: 1.1rem; }
+    .contact-link:hover .arrow { transform: translateX(4px); }
+    .copyright { font-size: 0.78rem; letter-spacing: 0.15em; color: var(--muted); margin-top: 3rem; text-transform: uppercase; font-weight: 500; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-tag  { animation: fadeUp 0.7s ease 0.1s both; }
+    .hero-name { animation: fadeUp 0.7s ease 0.25s both; }
+    .hero-tagline { animation: fadeUp 0.7s ease 0.4s both; }
+    .hero-btns { animation: fadeUp 0.7s ease 0.55s both; }
+    .hero-right { animation: fadeUp 0.9s ease 0.3s both; }
+
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 3rem 2rem; border-right: none; border-bottom: 1px solid var(--border); }
+      .hero-right { padding: 3rem 2rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .project-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .exp-item { grid-template-columns: 1fr; }
+      .exp-left { border-right: none; border-bottom: 1px solid var(--border); }
+      .ach-grid { grid-template-columns: 1fr; }
+      footer { grid-template-columns: 1fr; }
+      section { padding: 4rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">SS</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#publication">Research</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-tag">Artificial Intelligence and Data Science </div>
+      <h1 class="hero-name">Soundarya<br><em>Sivakumar</em></h1>
+      <p class="hero-tagline">
+        Building intelligent systems at the intersection of computer vision, NLP,
+        and accessible technology. IEEE-published researcher. Passionate about AI
+        that actually helps people.
+      </p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn btn-primary">Get in Touch</a>
+        <a href="#projects" class="btn">View Projects</a>
+        <a href="https://github.com/SoundaryaIndusivakumar" target="_blank" class="btn">GitHub ↗</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="photo-frame">
+        
+          
+          <img src="soundsi.png" alt="Soundarya Sivakumar" />
+        
+        
+      </div>
+      <div class="photo-caption">Karpagam Institute of Technology · Tamil Nadu</div>
+    </div>
+  </div>
+
+  
+
+  <section id="about">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">About Me</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a <strong>Artificial Intelligence and Data Science</strong> student at Karpagam Institute of Technology,
+          building systems at the intersection of deep learning, computer vision, and human-centred design.
+          My work ranges from IEEE-published surveillance architectures to voice-controlled accessibility
+          tools for blind developers.
+        </p>
+        <p>
+          Over the past two years, I've been building AI systems , not as academic exercises, but as things I genuinely wanted to exist. 
+          That approach has shaped how I think about data, models, and what it actually means for a system to work.
+        </p>
+        <p>
+          Outside of building, I present at international conferences, compete in national-level hackathons,
+          and contribute to design-led initiatives aligned with <strong>Viksit Bharat 2047</strong>.
+        </p>
+      </div>
+      <div class="about-details">
+        <div class="detail-row"><span class="detail-key">Degree</span><span class="detail-val">B.Tech · Artificial Intelligence and Data Science</span></div>
+        <div class="detail-row"><span class="detail-key">Institution</span><span class="detail-val">Karpagam Institute of Technology</span></div>
+        <div class="detail-row"><span class="detail-key">Batch</span><span class="detail-val">2022 – 2026</span></div>
+        <div class="detail-row"><span class="detail-key">Location</span><span class="detail-val">Tamil Nadu, India</span></div>
+        <div class="detail-row"><span class="detail-key">Specialisation</span><span class="detail-val">CV · NLP · LLM Integration</span></div>
+        <div class="detail-row"><span class="detail-key">Email</span><span class="detail-val">soundaryaindusivakumar@gmail.com</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card"><div class="skill-icon">◈</div><div class="skill-cat">Artificial Intelligence and Machine Learning</div><div class="skill-list">Deep Learning · Computer Vision · NLP<br>LLM Integration · Prompt Engineering<br>Model Fine-tuning · PyTorch · TensorFlow<br>YOLOv11 · BERT · LLaMA 3.1 · SHAP</div></div>
+      <div class="skill-card"><div class="skill-icon">◎</div><div class="skill-cat">Full Stack & APIs</div><div class="skill-list">REST API Design · Backend Development<br>Mobile Apps · Browser Extension Dev<br>FastAPI · Node.js · React Native<br>TypeScript · GCP · Firebase</div></div>
+      <div class="skill-card"><div class="skill-icon">◇</div><div class="skill-cat">Data Engineering</div><div class="skill-list">Graph & Relational DBs · NoSQL<br>Dataset Curation · Data Pipelines<br>PostgreSQL · Neo4j · SQLite<br>Pandas · NumPy · Scikit-learn</div></div>
+      <div class="skill-card"><div class="skill-icon">◉</div><div class="skill-cat">Speech & Accessibility</div><div class="skill-list">Voice Interface Design · TTS<br>Speech Recognition<br>Accessibility-first Development<br>Web Speech API · VS Code Diagnostics API</div></div>
+      <div class="skill-card"><div class="skill-icon">◌</div><div class="skill-cat">DevOps & Systems</div><div class="skill-list">Containerisation · Orchestration<br>Monitoring · Version Control<br>Docker · Kubernetes · CUDA<br>Prometheus · Grafana · Anthos</div></div>
+      <div class="skill-card"><div class="skill-icon">◆</div><div class="skill-cat">Research & Methods</div><div class="skill-list">CV Architecture Design<br>Genetic Algorithms · NLP Pipelines<br>ByteTrack · ResNet-50<br>EfficientNet-B4 · SBERT</div></div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Projects</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-list">
+      <div class="project-item">
+        <div><div class="project-year">2025 – 2026</div></div>
+        <div>
+          <div class="project-name">NeuroNav</div>
+          <div class="project-desc">AI-powered VS Code extension for blind developers. Groq API (LLaMA 3.1-8b) explains errors in plain language with sub-second response. Full voice layer via Web Speech API — 8 keyboard shortcuts, zero mouse required.</div>
+        </div>
+        <span class="project-tag">Accessibility · LLM</span>
+      </div>
+      <div class="project-item">
+        <div><div class="project-year">Sep – Dec 2024</div></div>
+        <div>
+          <div class="project-name">SBERT Recruitment System</div>
+          <div class="project-desc">Intelligent profile-matching using SBERT + cosine similarity achieving 93–95% accuracy on 200-pair test set. Weighted scoring with AES-256 encryption and OAuth 2.0 auth.</div>
+        </div>
+        <span class="project-tag">NLP · Security</span>
+      </div>
+      <div class="project-item">
+        <div><div class="project-year">Jan 2024</div></div>
+        <div>
+          <div class="project-name">Vehicle Routing Optimisation</div>
+          <div class="project-desc">Genetic algorithm (DEAP) routing 3 vehicles across 10 locations — reduced travel imbalance by ~25% vs naive approach. Real-time Matplotlib visualiser to validate routes.</div>
+        </div>
+        <span class="project-tag">Algorithms · Research</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="publication">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Research</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="pub-card">
+      <div class="pub-badge">IEEE Published · 2026</div>
+      <div class="pub-title">A Modular AI-Powered CCTV Surveillance Architecture for Action Recognition and Decision Support</div>
+      <div class="pub-meta">
+        Published at <strong>IEEE ICIPCN</strong> · January 2026<br>
+        DOI: <a href="https://doi.org/10.1109/ICIPCN67432.2026.11438266" target="_blank">10.1109/ICIPCN67432.2026.11438266</a>
+      </div>
+      <div class="pub-models">
+        <span class="model-chip">YOLOv11</span>
+        <span class="model-chip">ByteTrack</span>
+        <span class="model-chip">LSTM</span>
+        <span class="model-chip">BERT</span>
+        <span class="model-chip">ResNet-50</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Experience</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="exp-list">
+      <div class="exp-item">
+        <div class="exp-left"><span class="exp-company">IMIK Company</span><span class="exp-period">2024 · 6 months</span></div>
+        <div class="exp-right">
+          <div class="exp-role">Developer Intern</div>
+          <div class="exp-desc">Worked on backend features for a live product, mainly API development and integration tasks. 
+            Gained hands-on experience with how real production codebases are structured and developed.</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-left"><span class="exp-company">Praya Labs</span><span class="exp-period">2023 · Virtual</span></div>
+        <div class="exp-right">
+          <div class="exp-role">Data Science Intern</div>
+          <div class="exp-desc">Completed an end-to-end data science project independently , data cleaning, model building, and final evaluation. Developed self-sufficiency in handling real data workflows without hand-holding.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="achievements">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2 class="section-title">Achievements</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="ach-grid">
+      <div class="ach-item"><div class="ach-dot"></div><div class="ach-text"><strong>IEEE Published Author</strong>AI-powered CCTV Surveillance paper accepted and published at IEEE ICIPCN 2026</div></div>
+      <div class="ach-item"><div class="ach-dot"></div><div class="ach-text"><strong>Research Presenter</strong>Presented at ISTE-Sponsored ICLTSET'23 — 9th International Conference on Electric Vehicle advancements</div></div>
+      <div class="ach-item"><div class="ach-dot"></div><div class="ach-text"><strong>Hackathon Participant</strong>SAMHITA '24, National-Level Technical Symposium at Madras Institute of Technology</div></div>
+      <div class="ach-item"><div class="ach-dot"></div><div class="ach-text"><strong>Social Impact Recognition</strong>Recognised by Titan Company Ltd. for the Design Impact Movement 2023–24, aligned with Viksit Bharat 2047</div></div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div>
+      <div class="footer-title">Let's Build<br><em>Something</em><br>Together.</div>
+      <p class="footer-sub">Open to research collaborations, full-time roles, and interesting problems.<br>Currently based in Tamil Nadu, India.</p>
+      <div class="copyright">© 2026 Soundarya Sivakumar · All Rights Reserved</div>
+    </div>
+    <div>
+      <div class="contact-links">
+        <a href="mailto:soundaryaindusivakumar@gmail.com" class="contact-link"><span>soundaryaindusivakumar@gmail.com</span><span class="arrow">→</span></a>
+        <a href="https://www.linkedin.com/in/soundarya-indusivakumar-8208662b3" target="_blank" class="contact-link"><span>LinkedIn Profile</span><span class="arrow">→</span></a>
+        <a href="https://github.com/SoundaryaIndusivakumar" target="_blank" class="contact-link"><span>GitHub · SoundaryaIndusivakumar</span><span class="arrow">→</span></a>
+        <a href="https://doi.org/10.1109/ICIPCN67432.2026.11438266" target="_blank" class="contact-link"><span>IEEE Publication · DOI</span><span class="arrow">→</span></a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
